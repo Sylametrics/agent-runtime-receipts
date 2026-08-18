@@ -1,4 +1,4 @@
-# Syla Receipts
+# Agent Receipts
 
 **Open runtime receipts for AI agent costs, performance, and outcomes.**
 

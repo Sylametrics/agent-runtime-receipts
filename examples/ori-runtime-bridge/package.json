@@ -1,0 +1,10 @@
+{
+  "name": "@agent-receipts/example-ori-runtime-bridge",
+  "version": "0.2.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@agent-receipts/core": "workspace:*",
+    "@agent-receipts/ori": "workspace:*"
+  }
+}

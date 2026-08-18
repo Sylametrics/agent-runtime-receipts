@@ -1,0 +1,158 @@
+{
+  "specVersion": "syla.execution-receipt/0.1",
+  "execution": {
+    "id": "run_22d87a3a-e661-4820-a4ad-a2d63eef405d",
+    "agentId": "support-agent",
+    "task": "Handle refund eligibility question",
+    "startedAt": "2026-08-17T04:41:34.465Z",
+    "endedAt": "2026-08-17T04:41:34.466Z"
+  },
+  "events": [
+    {
+      "name": "openrouter.ori.baseline",
+      "data": {
+        "kind": "openrouter.ori-eval",
+        "id": "support-agent-2026-08",
+        "createdAt": "2026-08-17T04:41:34.465Z",
+        "selectedModel": "openai/gpt-5.6-sol",
+        "harness": "ori",
+        "constraints": {
+          "maxCostUsd": "0.05",
+          "maxLatencyMs": 30000,
+          "minQualityScore": 0.9,
+          "requiredTools": [
+            "lookup_order"
+          ],
+          "forbiddenTools": [
+            "issue_refund"
+          ]
+        }
+      },
+      "type": "custom",
+      "id": "evt_ca4dccc2-8f20-439e-b11c-904a7c6bcd5a",
+      "at": "2026-08-17T04:41:34.466Z"
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-5.6-sol",
+      "inputTokens": 1800,
+      "outputTokens": 420,
+      "cost": {
+        "amount": "0.031",
+        "currency": "USD"
+      },
+      "type": "model.usage",
+      "id": "evt_9cd24894-cefc-424d-905e-1c31f7185ca6",
+      "at": "2026-08-17T04:41:34.466Z"
+    },
+    {
+      "tool": "lookup_order",
+      "operation": "read",
+      "type": "tool.usage",
+      "id": "evt_5c23e417-d1fb-4655-804a-b0b5914204d4",
+      "at": "2026-08-17T04:41:34.466Z"
+    },
+    {
+      "evaluator": "openrouter.ori",
+      "metric": "runtime-envelope",
+      "score": 1,
+      "passed": true,
+      "metadata": {
+        "baselineId": "support-agent-2026-08",
+        "passed": true,
+        "checks": [
+          {
+            "name": "model",
+            "passed": true,
+            "expected": "openai/gpt-5.6-sol",
+            "actual": [
+              "openai/gpt-5.6-sol"
+            ]
+          },
+          {
+            "name": "cost",
+            "passed": true,
+            "expected": {
+              "maxUsd": "0.05"
+            },
+            "actual": {
+              "amount": "0.031",
+              "currency": "USD"
+            }
+          },
+          {
+            "name": "latency",
+            "passed": true,
+            "expected": 30000,
+            "actual": 14200
+          },
+          {
+            "name": "quality",
+            "passed": true,
+            "expected": 0.9,
+            "actual": 0.94
+          },
+          {
+            "name": "required-tools",
+            "passed": true,
+            "expected": [
+              "lookup_order"
+            ],
+            "actual": [
+              "lookup_order"
+            ]
+          },
+          {
+            "name": "forbidden-tools",
+            "passed": true,
+            "expected": [
+              "issue_refund"
+            ],
+            "actual": []
+          }
+        ]
+      },
+      "type": "evaluation",
+      "id": "evt_e02cc55f-6365-45d9-93ba-87038338c05c",
+      "at": "2026-08-17T04:41:34.466Z"
+    }
+  ],
+  "outcome": {
+    "status": "succeeded",
+    "qualityScore": 0.94,
+    "latencyMs": 14200
+  },
+  "economics": {
+    "currency": "USD",
+    "modelCost": {
+      "amount": "0.031",
+      "currency": "USD"
+    },
+    "toolCost": {
+      "amount": "0",
+      "currency": "USD"
+    },
+    "paymentCost": {
+      "amount": "0",
+      "currency": "USD"
+    },
+    "recoveryCost": {
+      "amount": "0",
+      "currency": "USD"
+    },
+    "customCost": {
+      "amount": "0",
+      "currency": "USD"
+    },
+    "totalCost": {
+      "amount": "0.031",
+      "currency": "USD"
+    }
+  },
+  "proof": {
+    "algorithm": "sha256",
+    "canonicalization": "syla-json-v1",
+    "digest": "sha256:82de8a3aeff12defd79c861dcb94915f9d75cd4b2d0750b70b3000ccf95a0c1f",
+    "createdAt": "2026-08-17T04:41:34.466Z"
+  }
+}

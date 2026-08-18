@@ -1,0 +1,32 @@
+{
+  "files": [],
+  "references": [
+    {
+      "path": "./packages/core"
+    },
+    {
+      "path": "./packages/openrouter"
+    },
+    {
+      "path": "./packages/x402"
+    },
+    {
+      "path": "./packages/otel"
+    },
+    {
+      "path": "./packages/cli"
+    },
+    {
+      "path": "./examples/basic"
+    },
+    {
+      "path": "./examples/openrouter-agent"
+    },
+    {
+      "path": "./packages/ori"
+    },
+    {
+      "path": "./examples/ori-runtime-bridge"
+    }
+  ]
+}

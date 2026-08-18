@@ -1,0 +1,11 @@
+{
+  "name": "@agent-receipts/ori",
+  "version": "0.2.0",
+  "description": "OpenRouter Ori Eval baseline bridge for Syla runtime receipts.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": { ".": { "types": "./dist/index.d.ts", "default": "./dist/index.js" } },
+  "dependencies": { "@agent-receipts/core": "workspace:*" }
+}

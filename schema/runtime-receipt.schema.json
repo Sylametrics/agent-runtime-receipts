@@ -1,0 +1,433 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://schemas.syla.dev/execution-receipt/0.1/schema.json",
+  "title": "Syla Runtime Receipt v0.1",
+  "type": "object",
+  "required": [
+    "specVersion",
+    "execution",
+    "events",
+    "outcome",
+    "economics",
+    "proof"
+  ],
+  "properties": {
+    "specVersion": {
+      "const": "syla.execution-receipt/0.1"
+    },
+    "execution": {
+      "type": "object",
+      "required": [
+        "id",
+        "agentId",
+        "task",
+        "startedAt",
+        "endedAt"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "agentId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "task": {
+          "type": "string"
+        },
+        "startedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "endedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "traceId": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "events": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/event"
+      }
+    },
+    "outcome": {
+      "type": "object",
+      "required": [
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "enum": [
+            "succeeded",
+            "failed",
+            "aborted",
+            "unknown"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "qualityScore": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "latencyMs": {
+          "type": "number",
+          "minimum": 0
+        },
+        "metadata": {
+          "type": "object"
+        }
+      },
+      "additionalProperties": false
+    },
+    "economics": {
+      "type": "object",
+      "required": [
+        "currency",
+        "modelCost",
+        "toolCost",
+        "paymentCost",
+        "recoveryCost",
+        "customCost",
+        "totalCost"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "minLength": 1
+        },
+        "modelCost": {
+          "$ref": "#/$defs/money"
+        },
+        "toolCost": {
+          "$ref": "#/$defs/money"
+        },
+        "paymentCost": {
+          "$ref": "#/$defs/money"
+        },
+        "recoveryCost": {
+          "$ref": "#/$defs/money"
+        },
+        "customCost": {
+          "$ref": "#/$defs/money"
+        },
+        "totalCost": {
+          "$ref": "#/$defs/money"
+        }
+      },
+      "additionalProperties": false
+    },
+    "proof": {
+      "type": "object",
+      "required": [
+        "algorithm",
+        "canonicalization",
+        "digest",
+        "createdAt"
+      ],
+      "properties": {
+        "algorithm": {
+          "const": "sha256"
+        },
+        "canonicalization": {
+          "const": "syla-json-v1"
+        },
+        "digest": {
+          "type": "string",
+          "pattern": "^sha256:[0-9a-f]{64}$"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "money": {
+      "type": "object",
+      "required": [
+        "amount",
+        "currency"
+      ],
+      "properties": {
+        "amount": {
+          "type": "string",
+          "pattern": "^\\d+(\\.\\d+)?$"
+        },
+        "currency": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    },
+    "eventBase": {
+      "type": "object",
+      "required": [
+        "id",
+        "at",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string"
+        },
+        "metadata": {
+          "type": "object"
+        }
+      }
+    },
+    "event": {
+      "oneOf": [
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/eventBase"
+            },
+            {
+              "type": "object",
+              "required": [
+                "provider",
+                "model",
+                "inputTokens",
+                "outputTokens"
+              ],
+              "properties": {
+                "type": {
+                  "const": "model.usage"
+                },
+                "provider": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "requestId": {
+                  "type": "string"
+                },
+                "inputTokens": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "outputTokens": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "reasoningTokens": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "cachedTokens": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "cacheWriteTokens": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "cost": {
+                  "$ref": "#/$defs/money"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/eventBase"
+            },
+            {
+              "type": "object",
+              "required": [
+                "tool",
+                "operation"
+              ],
+              "properties": {
+                "type": {
+                  "const": "tool.usage"
+                },
+                "tool": {
+                  "type": "string"
+                },
+                "operation": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "latencyMs": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "cost": {
+                  "$ref": "#/$defs/money"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/eventBase"
+            },
+            {
+              "type": "object",
+              "required": [
+                "protocol",
+                "amount"
+              ],
+              "properties": {
+                "type": {
+                  "const": "payment"
+                },
+                "protocol": {
+                  "type": "string"
+                },
+                "scheme": {
+                  "type": "string"
+                },
+                "network": {
+                  "type": "string"
+                },
+                "payer": {
+                  "type": "string"
+                },
+                "payee": {
+                  "type": "string"
+                },
+                "resource": {
+                  "type": "string"
+                },
+                "transactionId": {
+                  "type": "string"
+                },
+                "amount": {
+                  "$ref": "#/$defs/money"
+                },
+                "cost": {
+                  "$ref": "#/$defs/money"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/eventBase"
+            },
+            {
+              "type": "object",
+              "required": [
+                "attempt"
+              ],
+              "properties": {
+                "type": {
+                  "const": "retry"
+                },
+                "attempt": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "reason": {
+                  "type": "string"
+                },
+                "sourceEventId": {
+                  "type": "string"
+                },
+                "cost": {
+                  "$ref": "#/$defs/money"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/eventBase"
+            },
+            {
+              "type": "object",
+              "required": [
+                "evaluator",
+                "metric",
+                "score"
+              ],
+              "properties": {
+                "type": {
+                  "const": "evaluation"
+                },
+                "evaluator": {
+                  "type": "string"
+                },
+                "metric": {
+                  "type": "string"
+                },
+                "score": {
+                  "type": "number",
+                  "minimum": 0,
+                  "maximum": 1
+                },
+                "passed": {
+                  "type": "boolean"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "allOf": [
+            {
+              "$ref": "#/$defs/eventBase"
+            },
+            {
+              "type": "object",
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "type": {
+                  "const": "custom"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "data": {
+                  "type": "object"
+                },
+                "cost": {
+                  "$ref": "#/$defs/money"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "additionalProperties": false
+}

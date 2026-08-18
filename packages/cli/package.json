@@ -1,0 +1,10 @@
+{
+  "name": "@agent-receipts/cli",
+  "version": "0.1.0",
+  "description": "Local CLI for Syla runtime receipts.",
+  "license": "Apache-2.0",
+  "type": "module",
+  "main": "./dist/index.js",
+  "bin": { "agent-receipts": "./dist/index.js" },
+  "dependencies": { "@agent-receipts/core": "workspace:*" }
+}

@@ -1,0 +1,102 @@
+{
+  "specVersion": "syla.execution-receipt/0.1",
+  "execution": {
+    "id": "run_163d6a3b-681d-4f7d-9326-c03cad0066c4",
+    "agentId": "market-research-agent",
+    "task": "Produce a short competitor brief from a paid data source",
+    "startedAt": "2026-08-17T04:36:53.725Z",
+    "endedAt": "2026-08-17T04:36:53.725Z"
+  },
+  "events": [
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-4.1-mini",
+      "inputTokens": 1840,
+      "outputTokens": 510,
+      "cost": {
+        "amount": "0.012",
+        "currency": "USD"
+      },
+      "type": "model.usage",
+      "id": "evt_4dec46b0-594c-4c5a-a1ca-bec7da81fe51",
+      "at": "2026-08-17T04:36:53.725Z"
+    },
+    {
+      "protocol": "x402",
+      "scheme": "exact",
+      "network": "solana:EtWTRABZaYq6iMfeYKouRu166VU2xqa1",
+      "amount": {
+        "amount": "0.001",
+        "currency": "USDC"
+      },
+      "cost": {
+        "amount": "0.001",
+        "currency": "USD"
+      },
+      "payee": "example-payee",
+      "transactionId": "example-signature",
+      "resource": "https://api.example.test/paid-data",
+      "type": "payment",
+      "id": "evt_377832ae-4e31-4960-81a6-4fe2f06ac164",
+      "at": "2026-08-17T04:36:53.725Z"
+    },
+    {
+      "attempt": 2,
+      "reason": "first source timed out",
+      "cost": {
+        "amount": "0.002",
+        "currency": "USD"
+      },
+      "type": "retry",
+      "id": "evt_b0e65b62-a637-4abc-acf7-2eb075f69e14",
+      "at": "2026-08-17T04:36:53.725Z"
+    },
+    {
+      "evaluator": "brief-rubric-v1",
+      "metric": "task_quality",
+      "score": 0.92,
+      "passed": true,
+      "type": "evaluation",
+      "id": "evt_374b9660-9d33-430f-bc7f-e7fdcbbc7ecf",
+      "at": "2026-08-17T04:36:53.725Z"
+    }
+  ],
+  "outcome": {
+    "status": "succeeded",
+    "qualityScore": 0.92,
+    "latencyMs": 0
+  },
+  "economics": {
+    "currency": "USD",
+    "modelCost": {
+      "amount": "0.012",
+      "currency": "USD"
+    },
+    "toolCost": {
+      "amount": "0",
+      "currency": "USD"
+    },
+    "paymentCost": {
+      "amount": "0.001",
+      "currency": "USD"
+    },
+    "recoveryCost": {
+      "amount": "0.002",
+      "currency": "USD"
+    },
+    "customCost": {
+      "amount": "0",
+      "currency": "USD"
+    },
+    "totalCost": {
+      "amount": "0.015",
+      "currency": "USD"
+    }
+  },
+  "proof": {
+    "algorithm": "sha256",
+    "canonicalization": "syla-json-v1",
+    "digest": "sha256:d37446538dda0cc5a033c368f110ee0724b0203a38e082d023bf16265ded5d67",
+    "createdAt": "2026-08-17T04:36:53.725Z"
+  }
+}

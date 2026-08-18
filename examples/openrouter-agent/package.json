@@ -1,0 +1,9 @@
+{
+  "name": "@agent-receipts/example-openrouter-agent",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@agent-receipts/core": "workspace:*",
+    "@agent-receipts/openrouter": "workspace:*"
+  }
+}

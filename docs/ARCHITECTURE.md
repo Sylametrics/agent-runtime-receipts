@@ -2,7 +2,7 @@
 
 ## Boundary
 
-Syla Receipts sits above provider traces and payment receipts.
+Agent Runtime Receipts sits above provider traces and payment receipts.
 
 ```text
 Agent runtime
@@ -25,7 +25,7 @@ ExecutionRecorder
 Portable Runtime Receipt
 ```
 
-A payment protocol answers whether/how a payment settled. A Syla receipt links that settlement to the rest of the run: inference, tools, recovery, and outcome.
+A payment protocol answers whether/how a payment settled. A agent runtime receipt links that settlement to the rest of the run: inference, tools, recovery, and outcome.
 
 ## Package dependency direction
 

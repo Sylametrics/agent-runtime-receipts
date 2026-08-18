@@ -107,7 +107,7 @@ See `examples/openrouter-agent` for a complete fetch example.
 
 ## OpenRouter Ori Eval
 
-Ori Eval is the pre-deployment evaluation layer; Syla Receipts connects that baseline to what happens at runtime. The `@agent-receipts/ori` bridge records the model and constraints approved by an Ori eval, hashes the eval/report artifacts, and checks production runs against that evaluated envelope.
+Ori Eval is the pre-deployment evaluation layer; Agent Runtime Receipts connects that baseline to what happens at runtime. The `@agent-receipts/ori` bridge records the model and constraints approved by an Ori eval, hashes the eval/report artifacts, and checks production runs against that evaluated envelope.
 
 ```ts
 import { recordOriEvalBaseline, assessSnapshotAgainstOriBaseline } from "@agent-receipts/ori";

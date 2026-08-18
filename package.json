@@ -1,5 +1,5 @@
 {
-  "name": "agentic-receipts",
+  "name": "agent-runtime-receipts",
   "version": "0.2.1",
   "private": true,
   "description": "Open runtime receipts for AI agent costs, performance, and outcomes.",

@@ -1,10 +1,10 @@
 # OpenRouter Ori Eval bridge
 
-Syla Receipts should complement Ori Eval, not reproduce it.
+Agent Runtime Receipts should complement Ori Eval, not reproduce it.
 
 Ori Eval answers a **pre-deployment model-selection question**: which model performs best for this application's real prompts, tool expectations, quality criteria, latency target, and cost ceiling?
 
-Syla Receipts answers the corresponding **runtime accountability question**: did a production run actually use the evaluated model and remain inside the economic/behavioral envelope that was tested?
+Agent Runtime Receipts answers the corresponding **runtime accountability question**: did a production run actually use the evaluated model and remain inside the economic/behavioral envelope that was tested?
 
 ## Lifecycle
 

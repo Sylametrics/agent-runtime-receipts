@@ -1,6 +1,6 @@
 # OSS / Commercial Boundary
 
-Syla Receipts is intended to be genuinely useful as open source. The commercial opportunity is **not** charging developers to create or inspect their own receipt.
+Agent Runtime Receipts is intended to be genuinely useful as open source. The commercial opportunity is **not** charging developers to create or inspect their own receipt.
 
 ## Apache-2.0 OSS
 

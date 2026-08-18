@@ -1,7 +1,7 @@
 {
   "name": "@agent-receipts/otel",
   "version": "0.1.0",
-  "description": "OpenTelemetry-compatible attribute mapping for Syla receipts.",
+  "description": "OpenTelemetry-compatible attribute mapping for agent runtime receipts.",
   "license": "Apache-2.0",
   "type": "module",
   "main": "./dist/index.js",

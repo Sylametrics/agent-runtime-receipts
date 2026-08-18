@@ -10,7 +10,7 @@ The open-source boundary is the interoperable receipt, local verification, provi
 
 ## Why this exists
 
-Modern agent runs can combine model inference, tools, retries, retrieval, and machine payments. Those systems often expose each cost in a different place. Syla Receipts creates one runtime record that can contain:
+Modern agent runs can combine model inference, tools, retries, retrieval, and machine payments. Those systems often expose each cost in a different place. Agent Receipts creates one runtime record that can contain:
 
 - model usage and USD cost;
 - tool/resource cost;

@@ -18,6 +18,7 @@
 - [ ] Python implementation
 - [ ] formal canonicalization decision for v1
 - [ ] streaming OpenRouter helper
+- [ ] LangGraph runtime integration with deterministic tests and runnable example
 - [ ] direct x402 SDK examples for EVM and SVM
 - [ ] MCP tool-cost adapter
 - [ ] signed receipt envelopes

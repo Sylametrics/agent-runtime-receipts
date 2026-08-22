@@ -3,6 +3,10 @@
   "version": "0.2.0",
   "private": true,
   "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
   "dependencies": {
     "@agent-receipts/core": "workspace:*",
     "@agent-receipts/ori": "workspace:*"

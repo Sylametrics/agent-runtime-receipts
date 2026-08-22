@@ -29,19 +29,78 @@ A payment protocol answers whether/how a payment settled. A agent runtime receip
 
 ## Package dependency direction
 
-```text
-                @agent-receipts/core
-                 /      |       \
-                /       |        \
-       openrouter      x402      otel
-                \       |        /
-                 \      |       /
-                      apps
+The repository is a pnpm multi-package workspace. `core` is the stable contract; sibling packages translate external runtime facts into that contract.
 
-                  cli -> core
+```text
+                       @agent-receipts/core
+                         ^   ^   ^   ^   ^
+                         |   |   |   |   |
+       +-----------------+   |   |   |   +----------------+
+       |                     |   |   |                    |
+ openrouter                 x402 ori otel                 cli
+       |                     |   |   |                    |
+       +---------------------+---+---+--------------------+
+                             |
+                         applications
+                          / examples
 ```
 
-`core` has no provider, chain, OpenTelemetry SDK, database, or network dependency. Adapters convert external facts into receipt events.
+The dependency rule is deliberately stricter than the folder structure requires:
+
+- `@agent-receipts/core` must not import another Agent Receipts package.
+- Packages under `packages/` may depend on `core`, but should not depend on sibling integrations.
+- Applications/examples may compose multiple packages.
+- Integration-specific SDK/framework dependencies stay inside the relevant integration package.
+
+`pnpm check:boundaries` enforces the Agent Receipts package-to-package portion of this rule.
+
+### Why the workspace is flat
+
+Provider, payment, evaluation, telemetry, CLI, and future orchestration integrations remain sibling packages instead of being hidden inside `core` or nested by category. This mirrors the useful part of mature framework monorepos: independently scoped packages evolve together in one repository while retaining explicit install/import boundaries.
+
+The repository does not use Git submodules or a repository per adapter. It uses Turborepo on top of the pnpm workspace so package-local tasks can be dependency-aware, parallelized, and cached without weakening the package boundaries. TypeScript project references remain the compiler-level dependency model; Turbo orchestrates when package tasks run.
+
+### Build orchestration
+
+The root `turbo.json` defines the repository task graph:
+
+```text
+workspace dependency graph
+        |
+        v
+Turbo build
+  |
+  +-- builds upstream packages first (`^build`)
+  +-- caches `dist/**` and `*.tsbuildinfo`
+  +-- runs independent package builds in parallel
+  |
+  v
+package-local TypeScript builds/tests
+```
+
+Each workspace package owns its own `build`, `test` (when applicable), and `clean` scripts. Root commands such as `pnpm build` and `pnpm test` delegate to Turbo rather than hard-coding a list of package output paths. Targeted root commands use Turbo filters, which means adding `packages/langgraph` in the next pass will extend the same task graph instead of creating a second build system.
+
+### Future LangGraph package
+
+LangGraph should enter the repository as an optional sibling integration:
+
+```text
+packages/
+  core/
+  openrouter/
+  x402/
+  ori/
+  otel/
+  cli/
+  langgraph/        # planned
+
+examples/
+  langgraph-agent/  # planned runnable consumer
+```
+
+`@agent-receipts/langgraph` should map LangGraph graph/run/model/tool lifecycle information into existing core events and receipt fields. It should not define a separate receipt format and it should not make LangGraph a dependency of `@agent-receipts/core`.
+
+See [`DEVELOPMENT.md`](DEVELOPMENT.md) for the package-addition and verification checklist.
 
 ## Why adapters accept normalized data
 

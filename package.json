@@ -9,16 +9,25 @@
     "node": ">=22"
   },
   "scripts": {
-    "build": "tsc -b",
-    "clean": "find packages examples -type d -name dist -prune -exec rm -rf {} + && find packages examples -type f -name '*.tsbuildinfo' -delete",
-    "test": "pnpm build && node --test packages/core/dist/*.test.js packages/openrouter/dist/*.test.js packages/x402/dist/*.test.js packages/ori/dist/*.test.js",
-    "check": "pnpm build && pnpm test",
-    "example:basic": "pnpm build && node examples/basic/dist/index.js",
-    "example:openrouter": "pnpm build && node examples/openrouter-agent/dist/index.js",
-    "example:ori": "pnpm build && node examples/ori-runtime-bridge/dist/index.js"
+    "build": "turbo run build",
+    "clean": "turbo run clean",
+    "check:boundaries": "node internal/scripts/check-package-boundaries.mjs",
+    "test": "turbo run test",
+    "test:unit": "turbo run test --filter=@agent-receipts/core --filter=@agent-receipts/openrouter --filter=@agent-receipts/x402 --filter=@agent-receipts/ori",
+    "test:core": "turbo run test --filter=@agent-receipts/core",
+    "test:openrouter": "turbo run test --filter=@agent-receipts/openrouter",
+    "test:x402": "turbo run test --filter=@agent-receipts/x402",
+    "test:ori": "turbo run test --filter=@agent-receipts/ori",
+    "test:integrations": "turbo run test --filter=@agent-receipts/openrouter --filter=@agent-receipts/x402 --filter=@agent-receipts/ori",
+    "check": "pnpm check:boundaries && turbo run build test",
+    "verify": "pnpm clean && pnpm check:boundaries && turbo run build test --force",
+    "example:basic": "turbo run build --filter=@agent-receipts/example-basic && node examples/basic/dist/index.js",
+    "example:openrouter": "turbo run build --filter=@agent-receipts/example-openrouter-agent && node examples/openrouter-agent/dist/index.js",
+    "example:ori": "turbo run build --filter=@agent-receipts/example-ori-runtime-bridge && node examples/ori-runtime-bridge/dist/index.js"
   },
   "devDependencies": {
     "@types/node": "^22.15.0",
+    "turbo": "^2.10.8",
     "typescript": "^5.8.3"
   }
 }

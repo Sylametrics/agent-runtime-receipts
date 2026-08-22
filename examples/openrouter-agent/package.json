@@ -2,6 +2,10 @@
   "name": "@agent-receipts/example-openrouter-agent",
   "private": true,
   "type": "module",
+  "scripts": {
+    "build": "tsc -b",
+    "clean": "rm -rf dist *.tsbuildinfo"
+  },
   "dependencies": {
     "@agent-receipts/core": "workspace:*",
     "@agent-receipts/openrouter": "workspace:*"

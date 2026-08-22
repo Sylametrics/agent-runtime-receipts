@@ -1,0 +1,4 @@
+
+> @agent-receipts/example-basic@ build /Users/ctodmia/Projects/agent-runtime-receipts/examples/basic
+> tsc -b
+

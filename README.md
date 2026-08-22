@@ -36,14 +36,38 @@ Runtime receipt connects the costs, resources, performance, and outcome of the w
 | `@agent-receipts/otel` | map receipt data to OpenTelemetry-compatible attributes |
 | `@agent-receipts/cli` | verify and summarize receipt JSON files |
 
+## Repository layout
+
+Agent Receipts is organized as a multi-package pnpm workspace orchestrated with Turborepo. The package boundary is intentional: the core receipt model remains framework-neutral while provider, payment, evaluation, telemetry, and future orchestration integrations live in sibling packages.
+
+```text
+agent-runtime-receipts/
+├── packages/
+│   ├── core/
+│   ├── openrouter/
+│   ├── x402/
+│   ├── ori/
+│   ├── otel/
+│   └── cli/
+├── examples/
+├── docs/
+├── schema/
+└── internal/
+```
+
+Integration packages depend on `@agent-receipts/core`, not on one another. Applications and examples compose integrations through the public core API. Turborepo uses that workspace dependency graph to build upstream packages first and cache unchanged package outputs. This keeps future integrations such as LangGraph optional rather than turning them into dependencies of the receipt format itself.
+
+See [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md) for package boundaries and [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md) for the complete local test workflow. The scoped next-pass design is in [`docs/LANGGRAPH_INTEGRATION_PLAN.md`](docs/LANGGRAPH_INTEGRATION_PLAN.md).
+
 ## Quick start
 
 ```bash
 pnpm install
-pnpm build
-pnpm test
+pnpm check
 pnpm example:basic
 ```
+
+For a clean-from-generated-artifacts verification, run `pnpm verify`. Targeted package test commands and the manual fallback for environments without pnpm are documented in [`docs/DEVELOPMENT.md`](docs/DEVELOPMENT.md).
 
 Basic usage:
 
